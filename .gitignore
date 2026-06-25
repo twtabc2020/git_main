@@ -5,3 +5,4 @@ __pycache__/
 .env
 .DS_Store
 .json
+src/python_project/staging_config.json
