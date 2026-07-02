@@ -10,7 +10,7 @@ def authenticate_user(username, password):
         "password": password
     }
 
-    response = requests.post(config["AUTH_URL"], json=payload)
+    response = requests.post(config["API_URL"] + "auth", json=payload)
 
     if response.status_code == 200:
         return response.json()
