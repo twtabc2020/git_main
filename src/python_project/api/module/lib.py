@@ -1,8 +1,6 @@
 import json
 from pathlib import Path
 
-
-
 def get_project_root() -> Path:
     """自動往上尋找包含 .git 的專案根目錄"""
     for parent in Path(__file__).resolve().parents:
