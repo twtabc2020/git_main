@@ -16,6 +16,7 @@ def get_home_status():
     response = requests.get(config["HOME_URL"])
     return response.status_code
 
+
 if __name__ == "__main__":
     status_code = get_home_status()
 
@@ -23,4 +24,3 @@ if __name__ == "__main__":
         print("Home page is accessible.")
     else:
         print(f"Error accessing home page. Status code: {status_code}")
-
