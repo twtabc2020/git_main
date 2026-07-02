@@ -1,15 +1,7 @@
 import json
-from pathlib import Path
 import requests
+from python_project.api.module.lib import get_project_root
 
-
-def get_project_root() -> Path:
-    """自動往上尋找包含 .git 的專案根目錄"""
-    for parent in Path(__file__).resolve().parents:
-        if (parent / ".git").exists():
-            return parent
-    # 找不到 .git, 就回傳四層上層目錄
-    return Path(__file__).resolve().parent.parent.parent.parent
 
 ROOT = get_project_root()
 CONFIG_PATH = ROOT / "staging_config.json"
