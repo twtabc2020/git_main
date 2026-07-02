@@ -1,16 +1,8 @@
-import json
 import requests
-from python_project.api.module.lib import get_project_root
+from python_project.api.module.config import load_config
+from urllib.parse import urljoin
 
-ROOT = get_project_root()
-CONFIG_PATH = ROOT / "staging_config.json"
-
-if not CONFIG_PATH.exists():
-    raise FileNotFoundError(
-        f"找不到設定檔！請確認路徑是否正確：{CONFIG_PATH}"
-    )
-
-config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+config = load_config()
 
 
 def authenticate_user(username, password):
@@ -19,15 +11,13 @@ def authenticate_user(username, password):
         "password": password
     }
 
-    response = requests.post(config["API_URL"] + "auth", json=payload)
+    auth_url = urljoin(config["API_URL"], "auth")
+    response = requests.post(auth_url, json=payload)
 
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return {
-            "error": "Authentication failed",
-            "status_code": response.status_code
-        }
+    # 遇到非 200 的狀態碼時，直接拋出例外會是更好的錯誤處理方式
+    response.raise_for_status()
+
+    return response.json()
 
 
 if __name__ == "__main__":

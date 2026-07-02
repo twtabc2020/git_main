@@ -1,15 +1,8 @@
-import json
 import requests
-from python_project.api.module.lib import get_project_root
+from python_project.api.module.config import load_config
 
 
-ROOT = get_project_root()
-CONFIG_PATH = ROOT / "staging_config.json"
-
-if not CONFIG_PATH.exists():
-    raise FileNotFoundError(f"找不到設定檔！請確認路徑是否正確：{CONFIG_PATH}")
-
-config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+config = load_config()
 
 
 def get_home_status():
