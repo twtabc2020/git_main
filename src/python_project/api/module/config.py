@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+
 from .lib import get_project_root
 
 
